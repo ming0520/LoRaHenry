@@ -1,3 +1,4 @@
+// https://github.com/PaulStoffregen/RadioHead
 #include <RH_RF95.h>
 
 #define RFM95_CS 10
@@ -20,6 +21,7 @@ void setup() {
   
   rf95.setFrequency(915.0);
   rf95.setTxPower(23);
+  Serial.println("LoRa module initilzed!.");
 }
 
 void loop() {
