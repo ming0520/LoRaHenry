@@ -34,6 +34,7 @@ void setup() {
 
 }
 
+int counter = 0;
 
 void loop() {
 
@@ -45,8 +46,6 @@ void loop() {
   // send packet
 
   LoRa.beginPacket();
-
-  LoRa.print("hello ");
 
   LoRa.print(counter);
 
