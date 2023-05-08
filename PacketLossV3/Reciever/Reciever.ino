@@ -8,6 +8,22 @@
 const int packetSize = 20;
 char packet[packetSize];
 
+bool detectPacketLoss() {
+  unsigned long startTime = millis();
+
+  // wait for packet to be received or timeout
+  while (LoRa.available() == 0 && millis() - startTime < 1000) {
+    delay(10);
+  }
+
+  // check if packet was received
+  if (LoRa.available()) {
+    return false;
+  } else {
+    return true;
+  }
+}
+
 void setup() {
   Serial.begin(9600);
   while (!Serial);
@@ -21,12 +37,21 @@ void setup() {
 }
 
 void loop() {
-  int packetSize = LoRa.parsePacket();
-  if (packetSize) {
-    while (LoRa.available()) {
-      String received = LoRa.readString();
-      Serial.print("Packet received: ");
-      Serial.println(received);
-    }
+  // send packet
+  memset(packet, 0, packetSize);
+  sprintf(packet, "Hello world %d", millis());
+  LoRa.beginPacket();
+  LoRa.print(packet);
+  LoRa.endPacket();
+
+  // detect packet loss
+  bool packetLost = detectPacketLoss();
+
+  // handle packet loss
+  if (packetLost) {
+    Serial.println("Packet lost");
   }
+
+  // wait before sending next packet
+  delay(1000);
 }
