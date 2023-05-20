@@ -2,7 +2,7 @@
 #include <SPI.h>
 #include <LoRa.h>
 
-const int packetCount = 5;  // Number of packets to send
+const int packetCount = 20;  // Number of packets to send
 int sentCount = 0;
 
 void setup() {
@@ -27,7 +27,7 @@ void setup() {
 
 void loop() {
 
-  if(sentCount < packetCount){
+  if(sentCount < packetCount+1){
     Serial.print("Sending packet: ");
     Serial.println(sentCount);
 
@@ -40,11 +40,11 @@ void loop() {
   }else {
     Serial.println("Packet sending complete.");
     while (true){
-      LoRa.beginPacket();
-      Serial.println("*");
-      LoRa.print("*");
-      LoRa.endPacket();
-      delay(1000);
+      // LoRa.beginPacket();
+      // Serial.println("*");
+      // LoRa.print("*");
+      // LoRa.endPacket();
+      // delay(1000);
     }
   }
   

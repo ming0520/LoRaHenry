@@ -2,12 +2,14 @@
 #include <SPI.h>
 #include <LoRa.h>
 
-const int packetCount = 5;  // Number of packets to receive
+const int packetCount = 20;  // Number of packets to receive
 int receivedCount = 0;
 int successCount = 0;
 bool stopFlag = true;
 
 void setup() {
+  successCount = 0;
+  receivedCount = 0;
   Serial.begin(9600);
   while (!Serial);
 
@@ -22,6 +24,7 @@ void setup() {
 void loop() {
 
   int packetSize;
+
   while(stopFlag){
     packetSize = LoRa.parsePacket();
     if (packetSize) {
@@ -42,22 +45,36 @@ void loop() {
 
     if (packetSize) {
       // received a packet
-      Serial.print("Received packet '");
+      
       // read packet
+      String message = "";
       while (LoRa.available()) {
-        receivedCount = (int)LoRa.read()-(int)'0';
-        if (receivedCount < packetCount && receivedCount >= 0){
-          Serial.print(receivedCount);
-          successCount++;
-        }         
+        // receivedCount =  String((char)LoRa.read()).toInt();
+        
+        // receivedCount = (int)LoRa.read()-(int)'0'; 
+        message += (char)LoRa.read();   
       }
-
-      if(receivedCount == -6){
+      receivedCount = message.toInt();
+      if (receivedCount < packetCount && receivedCount >= 0){
+        Serial.print("Received packet ");
+        Serial.print(receivedCount);
+        successCount = successCount + 1;
+        Serial.print(" Success Count:" + String(successCount));
+      }else{
         Serial.println("Packet receiving complete.");
         Serial.println(receivedCount);
         Serial.println("Success rate: " + String(successCount) + " out of " + String(packetCount));
         while (true);       
-      }
+      }          
+
+      // if(receivedCount == -6){
+      //   Serial.println("Packet receiving complete.");
+      //   Serial.println(receivedCount);
+      //   Serial.println("Success rate: " + String(successCount) + " out of " + String(packetCount));
+      //   while (true);       
+      // }
+
+
 
      // print RSSI of packet
     Serial.print("' with RSSI ");
