@@ -4,7 +4,7 @@
 const int csPin = 10;
 const int resetPin = 9;
 const int irqPin = 2;
-const int packetCount = 100;  // Number of packets to send
+const int packetCount = 10;  // Number of packets to send
 int sentCount = 0;
 int successCount = 0;
 

@@ -4,9 +4,11 @@
 const int csPin = 10;
 const int resetPin = 9;
 const int irqPin = 2;
-const int packetCount = 100;  // Number of packets to receive
+const int packetCount = 10;  // Number of packets to receive
 int receivedCount = 0;
 int successCount = 0;
+
+String receivedData[packetCount];
 
 void setup() {
   Serial.begin(9600);
@@ -40,5 +42,5 @@ void loop() {
     while (true);
   }
 
-  delay(1000);
+  // delay(1000);
 }
