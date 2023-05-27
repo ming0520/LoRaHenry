@@ -38,7 +38,7 @@ void loop() {
 
     // received a packet
 
-    Serial.print("Received packet '");
+    // Serial.print("Received packet '");
 
 
     // read packet
@@ -52,12 +52,11 @@ void loop() {
 
     // print RSSI of packet
 
-    Serial.print("' with RSSI ");
-
-    Serial.println(LoRa.packetRssi());
-    Serial.print("' Packet Frequency Error: ");
-    Serial.println(LoRa.packetFrequencyError()); 
-    Serial.print("' packetSnr ");
+    Serial.print(",");
+    Serial.print(LoRa.packetRssi());
+    Serial.print(",");
+    Serial.print(LoRa.packetFrequencyError()); 
+    Serial.print(",");
     Serial.println(LoRa.packetSnr());
   }
 
