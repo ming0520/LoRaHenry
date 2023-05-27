@@ -8,6 +8,7 @@ int successCount = 0;
 bool stopFlag = true;
 
 void setup() {
+  LoRa.setTxPower(txPower);
   successCount = 0;
   receivedCount = 0;
   Serial.begin(9600);
@@ -78,7 +79,11 @@ void loop() {
 
      // print RSSI of packet
     Serial.print("' with RSSI ");
-    Serial.println(LoRa.packetRssi());         
+    Serial.println(LoRa.packetRssi());
+    Serial.print("' Packet Frequency Error: ");
+    Serial.println(LoRa.packetFrequencyError()); 
+    Serial.print("' packetSnr ");
+    Serial.println(LoRa.packetSnr());             
   }
 
 }
