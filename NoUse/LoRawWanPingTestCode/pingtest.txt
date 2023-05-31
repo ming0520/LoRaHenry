@@ -1,0 +1,88 @@
+//Certainly! Below is an example of a LoRa ping test code using the Arduino platform and the LMIC (LoRaWAN-MAC-in-C) library. This code is designed to send a ping request over LoRa to a LoRa gateway and receive the response.
+
+#include <lmic.h>
+#include <hal/hal.h>
+#include <SPI.h>
+
+// LoRaWAN NwkSKey, AppSKey, and DevAddr
+static const u1_t PROGMEM NWKSKEY[16] = { /* Insert your network session key here */ };
+static const u1_t PROGMEM APPSKEY[16] = { /* Insert your application session key here */ };
+static const u4_t DEVADDR = 0x00000000; /* Insert your device address here */
+
+// Pin mapping for Arduino
+const lmic_pinmap lmic_pins = {
+    .nss = 10,
+    .rxtx = LMIC_UNUSED_PIN,
+    .rst = 9,
+    .dio = {2, 6, LMIC_UNUSED_PIN},
+};
+
+void os_getArtEui(u1_t* buf) { /* Not used */ }
+
+void os_getDevEui(u1_t* buf) { /* Not used */ }
+
+void os_getDevKey(u1_t* buf) { /* Not used */ }
+
+void doPing() {
+    // Generate a random payload for the ping request
+    uint8_t payload[4];
+    for (uint8_t i = 0; i < 4; i++) {
+        payload[i] = random(256);
+    }
+  
+    // Send the ping request
+    LMIC_setTxData2(1, payload, sizeof(payload), 0);
+    Serial.println(F("Ping sent! Waiting for response..."));
+}
+
+void onEvent(ev_t ev) {
+    if (ev == EV_TXCOMPLETE) {
+        // Transmission complete, start listening for the response
+        LMIC_startReceive();
+    } else if (ev == EV_RXCOMPLETE) {
+        // Received a response
+        if (LMIC.dataLen == 4) {
+            // Response payload has 4 bytes
+            Serial.print(F("Ping response received: "));
+            for (uint8_t i = 0; i < LMIC.dataLen; i++) {
+                Serial.print(LMIC.frame[LMIC.dataBeg + i], HEX);
+                Serial.print(' ');
+            }
+            Serial.println();
+        } else {
+            Serial.println(F("Invalid ping response!"));
+        }
+    }
+}
+
+void setup() {
+    Serial.begin(115200);
+    Serial.println(F("LoRa ping test"));
+
+    // Initialize LoRaWAN stack
+    os_init();
+    LMIC_reset();
+  
+    // Set the LoRaWAN network session keys
+    LMIC_setSession(0x1, DEVADDR, NWKSKEY, APPSKEY);
+
+    // Set data rate and transmit power (adjust according to your region and requirements)
+    LMIC_setDrTxpow(DR_SF7, 14);
+  
+    // Start joining the network
+    LMIC_startJoining();
+}
+
+void loop() {
+    os_runloop_once();
+  
+    // Check if joined the network
+    if (LMIC.devaddr != 0) {
+        // Perform a ping test every 10 seconds
+        static uint32_t lastPingTime = 0;
+        if (millis() - lastPingTime > 10000) {
+            lastPingTime = millis();
+            doPing();
+        }
+    }
+}
