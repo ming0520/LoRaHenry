@@ -21,7 +21,7 @@ void setup() {
     Serial.println("Starting LoRa failed!");
     while (1);
   }
-  Serial.println("packet id,success count,RSSI,frequency error,SNR");
+  LoRa.enableCrc(); // Enable CRC calculation
 }
 
 void loop() {

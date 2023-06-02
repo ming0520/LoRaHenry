@@ -5,6 +5,7 @@
 unsigned long receiveTimestamp;
 unsigned long sendTimestamp;
 bool waitingMsg = false;
+int counter = 0;
 
 void setup() {
 
@@ -17,7 +18,7 @@ void setup() {
     Serial.println("Starting LoRa failed!");
     while (1);
   }
-  Serial.println("Latency,unit");
+  Serial.println("Latency,unit,counter");
 }
 
 void loop() {
@@ -53,6 +54,7 @@ void loop() {
     } 
 }
 delay(1000);
+counter++;
 
 }
 
@@ -60,5 +62,6 @@ void calculateLatency() {
   unsigned long latency = receiveTimestamp - sendTimestamp;
   // Serial.print("Latency: ");
   Serial.print(latency);
-  Serial.println(",ms");
+  Serial.print(",ms,");
+  Serial.println(counter);
 }
