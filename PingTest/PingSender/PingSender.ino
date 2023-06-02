@@ -6,6 +6,8 @@ unsigned long receiveTimestamp;
 unsigned long sendTimestamp;
 bool waitingMsg = false;
 int counter = 0;
+String roadType = "curve";
+int distance = 100;
 
 void setup() {
 
@@ -18,7 +20,7 @@ void setup() {
     Serial.println("Starting LoRa failed!");
     while (1);
   }
-  Serial.println("Latency,unit,counter");
+  Serial.println("Latency,unit,counter,road,distance");
 }
 
 void loop() {
@@ -63,5 +65,6 @@ void calculateLatency() {
   // Serial.print("Latency: ");
   Serial.print(latency);
   Serial.print(",ms,");
-  Serial.println(counter);
+  Serial.print(counter);
+  Serial.println(","+roadType+","+distance);
 }
