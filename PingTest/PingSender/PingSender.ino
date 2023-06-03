@@ -31,11 +31,11 @@ void loop() {
   if(!waitingMsg){
     sendTimestamp = millis();
     LoRa.beginPacket();
-    Serial.println("#");
+    // Serial.println("#");
     LoRa.print("#");
     LoRa.endPacket();
     waitingMsg = true;
-    Serial.println("Waiting msg...");
+    // Serial.println("Waiting msg...");
   }
 
   while (waitingMsg){
@@ -47,14 +47,14 @@ void loop() {
       while (LoRa.available()) {
         receivedChar = (char)LoRa.read();
       }
-      Serial.print("Recieved: ");
-      Serial.println(receivedChar);
+      // Serial.print("Recieved: ");
+      // Serial.println(receivedChar);
       if(receivedChar == '*'){
         receiveTimestamp = millis();
         calculateLatency();
         waitingMsg = false;
       }else{
-        Serial.println("Timeout");
+        // Serial.println("Timeout");
         waitingMsg = false;
       }
     } 
