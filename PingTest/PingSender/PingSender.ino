@@ -53,6 +53,7 @@ void loop() {
         receiveTimestamp = millis();
         calculateLatency();
         waitingMsg = false;
+        counter++;
       }else{
         // Serial.println("Timeout");
         waitingMsg = false;
@@ -60,7 +61,6 @@ void loop() {
     } 
 }
 delay(1000);
-counter++;
 
 }
 
