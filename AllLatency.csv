@@ -46,6 +46,7 @@ latency,road,distance,unit,device
 64,curve,500,ms,Dragino
 64,curve,500,ms,Dragino
 65,curve,500,ms,Dragino
+65,curve,500,ms,Dragino
 64,curve,500,ms,Dragino
 64,curve,500,ms,Dragino
 64,straight,500,ms,Dragino
