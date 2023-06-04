@@ -1,4 +1,4 @@
-packet id,success count,RSSI,frequency error,SNR,road type,distance,device
+packetId,successCount,RSSI,frequencyError,SNR,road,distance,device
 1,14,-97,-1384,8.75,curve,100,Dragino
 2,15,-96,-1367,8.5,curve,100,Dragino
 3,16,-94,-1367,9,curve,100,Dragino
