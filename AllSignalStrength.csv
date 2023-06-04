@@ -148,10 +148,6 @@ packetId,successCount,RSSI,frequencyError,SNR,road,distance,device
 32,164,-120,226,2,curve,500,Dragino
 33,165,-120,260,3.5,curve,500,Dragino
 34,166,-120,243,1.5,curve,500,Dragino
-31,163,-119,209,-0.25,curve,500,Dragino
-32,164,-120,226,2,curve,500,Dragino
-33,165,-120,260,3.5,curve,500,Dragino
-34,166,-120,243,1.5,curve,500,Dragino
 35,167,-121,310,0.5,curve,500,Dragino
 36,168,-120,293,4,curve,500,Dragino
 37,169,-120,310,2.75,curve,500,Dragino
