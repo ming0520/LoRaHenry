@@ -564,7 +564,6 @@ packetId,successCount,RSSI,frequencyError,SNR,road,distance,device
 50,34,-108,780,-3.75,straight,300,SX1278
 51,35,-107,746,-4.5,straight,300,SX1278
 52,36,-108,813,-6,straight,300,SX1278
-43,37,-108,763,-8.5,straight,300,SX1278
 1,124,-112,1048,-1.5,curve,500,SX1278
 2,125,-110,1048,0,curve,500,SX1278
 3,126,-108,1031,3.5,curve,500,SX1278
